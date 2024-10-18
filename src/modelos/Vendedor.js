@@ -14,9 +14,17 @@ const Vendedor = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    telefono: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     celular: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
+    },
+    correo: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     usuarioId: {
       type: DataTypes.INTEGER,

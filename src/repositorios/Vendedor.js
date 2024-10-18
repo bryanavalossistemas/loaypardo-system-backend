@@ -10,19 +10,21 @@ class RepositorioVendedor extends RepositorioBase {
     try {
       const vendedores = await this.model.findAll({
         include: [{ model: Usuario, as: "usuario" }],
-        order: [["id", "ASC"]],
+        order: [["id", "DESC"]],
       });
-      const res = vendedores.map((vendedor) => {
+
+      return vendedores.map((vendedor) => {
         return {
           id: vendedor.id,
           nombre: vendedor.usuario.nombre,
           usuario: vendedor.usuario.usuario,
           contrasenia: vendedor.usuario.contrasenia,
           dni: vendedor.dni,
+          telefono: vendedor.telefono,
           celular: vendedor.celular,
+          correo: vendedor.correo,
         };
       });
-      return res;
     } catch (error) {
       throw new Error(
         `Error de Base de datos: error al obtener elementos: ${error.message}`
@@ -46,16 +48,6 @@ class RepositorioVendedor extends RepositorioBase {
     } catch (error) {
       throw new Error(
         `Error de Base de datos: error al obtener el vendedor con DNI: ${dni}: ${error.message}`
-      );
-    }
-  };
-
-  obtenerPorCelular = async (celular) => {
-    try {
-      return await this.model.findOne({ where: { celular } });
-    } catch (error) {
-      throw new Error(
-        `Error de Base de datos: error al obtener el vendedor con celular: ${celular}: ${error.message}`
       );
     }
   };

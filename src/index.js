@@ -2,7 +2,6 @@ import app from "./app.js";
 import colors from "colors";
 import sequelize from "./configuraciones/BaseDeDatos.js";
 
-// Funcion principal
 async function main() {
   try {
     const init = process.argv[2];

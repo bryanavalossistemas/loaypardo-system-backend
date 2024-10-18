@@ -6,14 +6,10 @@ const router = express.Router();
 
 router.post("/", ControladorUsuario.crearUsuario);
 router.get("/", ControladorUsuario.obtenerUsuarios);
+router.get("/usuario", authenticate, ControladorUsuario.obtenerUsuario);
 router.get("/:id", ControladorUsuario.obtenerUsuarioPorId);
 router.put("/:id", ControladorUsuario.actualizarUsuario);
 router.delete("/:id", ControladorUsuario.eliminarUsuario);
-router.post("/autenticacion/iniciarSesion", ControladorUsuario.iniciarSesion);
-router.get(
-  "/usuario/obtener",
-  authenticate,
-  ControladorUsuario.obtenerUsuario
-);
+router.post("/iniciarSesion", ControladorUsuario.iniciarSesion);
 
 export default router;

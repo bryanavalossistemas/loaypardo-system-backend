@@ -1,7 +1,7 @@
 ### OBTENER TODOS LOS VENDEDORES
 GET http://localhost:4000/api/vendedores
 
-### OBTENER VENDEDOR POR USUARIO ID
+### OBTENER VENDEDOR POR USUARIO IDp
 GET http://localhost:4000/api/vendedores/usuario/2
 
 ### OBTENER VENDEDOR POR DNI
@@ -16,5 +16,7 @@ Content-Type: application/json
     "usuario": "vendedor",
     "contrasenia": "vendedor",
     "dni": "75013015",
-    "telefono": "915115894"
+    "telefono": "4746922",
+    "celular": "915115894",
+    "correo": "leonardo@gmail.com"
 }

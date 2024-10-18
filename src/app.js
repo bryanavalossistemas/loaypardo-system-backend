@@ -16,20 +16,19 @@ import rutasCliente from "./rutas/Cliente.js";
 import rutasProducto from "./rutas/Producto.js";
 import rutasImagenProducto from "./rutas/ImagenProducto.js";
 import rutasDetalleCompra from "./rutas/DetalleCompra.js";
+import { transformarCadenasVacias } from "./middlewares/Middleware.js";
 
-// Configurar el servidor Express
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(transformarCadenasVacias);
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
-// Prueba de inicio
 app.get("/", (req, res) => {
   return res.json({ message: "Prueba de inicio" });
 });
 
-// Definir las rutas API
 app.use("/api/categorias", rutasCategoria);
 app.use("/api/marcas", rutasMarca);
 app.use("/api/proveedores", rutasProveedor);

@@ -1,9 +1,16 @@
 import repositorioVendedor from "../repositorios/Vendedor.js";
 import repositorioUsuario from "../repositorios/Usuario.js";
-import { encriptarContrasenia } from "../funciones/funciones.js";
 
 class ServicioVendedor {
-  async crearVendedor(nombre, usuario, contrasenia, dni, celular) {
+  async crearVendedor(
+    nombre,
+    usuario,
+    contrasenia,
+    dni,
+    telefono,
+    celular,
+    correo
+  ) {
     try {
       const usuarioExiste = await repositorioUsuario.obtenerPorUsuario(usuario);
       if (usuarioExiste) {
@@ -13,25 +20,22 @@ class ServicioVendedor {
       if (vendedorConDniExiste) {
         throw new Error(`Ya existe un vendedor con dni:  ${dni}`);
       }
-      const vendedorConTelefonoExiste =
-        await repositorioVendedor.obtenerPorCelular(celular);
-      if (vendedorConTelefonoExiste) {
-        throw new Error(`Ya existe un vendedor con celular:  ${celular}`);
-      }
-      const contraseniaEncriptada = await encriptarContrasenia(contrasenia);
       const nuevoUsuario = {
         nombre,
         usuario,
-        contrasenia: contraseniaEncriptada,
+        contrasenia,
         rolId: 2,
       };
       const usuarioCreado = await repositorioUsuario.agregar(nuevoUsuario);
-      const nuevoVendedor = { dni, celular, usuarioId: usuarioCreado.id };
-      const vendedorCreado = await repositorioVendedor.agregar(nuevoVendedor);
-      return {
-        ok: true,
-        message: vendedorCreado,
+      const nuevoVendedor = {
+        dni,
+        telefono,
+        celular,
+        correo,
+        usuarioId: usuarioCreado.id,
       };
+      await repositorioVendedor.agregar(nuevoVendedor);
+      return "Vendedor creado correctamente";
     } catch (error) {
       throw new Error(`Error al crear el vendedor: ${error.message}`);
     }
@@ -45,7 +49,16 @@ class ServicioVendedor {
     }
   }
 
-  async actualizarVendedor(id, nombre, usuario, contrasenia, dni, celular) {
+  async actualizarVendedor(
+    id,
+    nombre,
+    usuario,
+    contrasenia,
+    dni,
+    telefono,
+    celular,
+    correo
+  ) {
     try {
       const usuarioExiste = await repositorioUsuario.obtenerPorUsuario(usuario);
       if (usuarioExiste && usuarioExiste.vendedor.id != id) {
@@ -60,7 +73,15 @@ class ServicioVendedor {
       if (vendedorConCelularExiste && vendedorConCelularExiste.id != id) {
         throw new Error(`Ya existe un vendedor con celular:  ${celular}`);
       }
-      const datosActualizados = { nombre, usuario, contrasenia, dni, celular };
+      const datosActualizados = {
+        nombre,
+        usuario,
+        contrasenia,
+        dni,
+        telefono,
+        celular,
+        correo,
+      };
       const vendedorActualizado = await repositorioVendedor.actualizar(
         id,
         datosActualizados

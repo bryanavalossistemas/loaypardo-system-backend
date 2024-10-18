@@ -31,6 +31,18 @@ class ServicioUsuario {
     }
   }
 
+  async obtenerUsuario(id) {
+    try {
+      const usuario = await repositorioUsuario.obtenerPorId(id);
+      if (!usuario) throw new Error("Usuario no encontrado");
+      return usuario;
+    } catch (error) {
+      throw new Error(
+        `Error al obtener el usuario con ID ${id}: ${error.message}`
+      );
+    }
+  }
+
   async actualizarUsuario(id, nombre, usuario, contrasenia, rolId) {
     try {
       const datosActualizados = { nombre, usuario, contrasenia, rolId };
@@ -57,9 +69,8 @@ class ServicioUsuario {
 
   async iniciarSesion(usuario, contrasenia) {
     try {
-      const usuarioEncontrado = await repositorioUsuario.obtenerPorUsuario(
-        usuario
-      );
+      const usuarioEncontrado =
+        await repositorioUsuario.obtenerPorUsuarioSinVendedor(usuario);
       if (!usuarioEncontrado) {
         throw new Error("Datos no válidos");
       }
@@ -71,8 +82,9 @@ class ServicioUsuario {
         throw new Error("Datos no válidos");
       }
       return {
-        ok: true,
-        token: generarJWT({ usuarioId: usuarioEncontrado.id }),
+        token: generarJWT({
+          id: usuarioEncontrado.id,
+        }),
         rolId: usuarioEncontrado.rolId,
       };
     } catch (error) {
