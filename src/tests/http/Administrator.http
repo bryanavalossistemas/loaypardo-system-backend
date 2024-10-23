@@ -1,0 +1,59 @@
+### CREAR ADMINISTRADOR
+POST http://localhost:4000/api/administrators
+Content-Type: application/json
+
+{
+    "name": "Bryan Avalos Loa y Pardo",
+    "username": "administrador",
+    "password": "administrador"
+}
+
+### OBTENER TODOS LOS ADMINISTRADORES
+GET http://localhost:4000/api/administrators
+
+### OBTENER ADMINISTRADOR POR ID
+GET  http://localhost:4000/api/administrators/1
+
+### ACTUALIZAR ADMINISTRADOR
+PUT http://localhost:4000/api/administrators/3
+Content-Type: application/json
+
+{
+    "name": "Bryan Avalos Loa y Pardo actualizado",
+    "username": "administrador",
+    "password": "administrador"
+}
+
+### CREAR VENDEDOR
+POST http://localhost:4000/api/administrators/vendedores/crear
+Content-Type: application/json
+
+{
+    "nombre": "Leonardo Jauregui",
+    "usuario": "vendedor",
+    "contrasenia": "vendedor",
+    "dni": "75013015",
+    "telefono": "915115894"
+}
+
+### ACTUALIZAR VENDEDOR POR ID
+PUT http://localhost:4000/api/administrators/vendedores/actualizar/1
+Content-Type: application/json
+
+{
+    "nombre": "Dimitri el rcsm",
+    "usuario": "dimi",
+    "contrasenia": "contrase",
+    "dni": "75013015",
+    "telefono": "915115894"
+}
+
+### MODIFICAR DATOS DEL ADMINISTRADOR POR ID
+PUT http://localhost:4000/api/administrators/1
+Content-Type: application/json
+
+{
+    "nombre": "Bryan Avalos Loa y Pardo Jesus administrators modificado",
+    "usuario": "admin",
+    "contrasenia": "contrasenia"
+}

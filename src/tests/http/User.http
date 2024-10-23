@@ -1,0 +1,40 @@
+### CREAR USUARIO
+POST http://localhost:4000/api/users
+Content-Type: application/json
+
+{
+    "name": "Bryan Avalos Loa y Pardo Jesus",
+    "username": "username",
+    "password": "password",
+    "roleId": 1
+}
+
+### OBTENER TODOS LOS USUARIOS
+GET http://localhost:4000/api/users
+
+### OBTENER USUARIO POR ID
+GET http://localhost:4000/api/users/1
+
+### MODIFICAR USUARIO POR ID
+
+PUT http://localhost:4000/api/users/1
+Content-Type: application/json
+
+{
+    "name": "Bryan Avalos Loa y Pardo Jesus Actualizado",
+    "username": "username",
+    "password": "password",
+    "roleId": 1
+}
+
+### ELIMINAR USUARIO POR ID
+DELETE http://localhost:4000/api/users/1
+
+### INICIAR SESION
+POST  http://localhost:4000/api/users/autenticacion/iniciarSesion
+Content-Type: application/json
+
+{
+    "username": "username",
+    "password": "password"
+}

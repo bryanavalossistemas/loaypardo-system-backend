@@ -1,7 +1,5 @@
 import jwt from "jsonwebtoken";
-import ModeloUsuario from "../modelos/Usuario.js";
-import dotenv from "dotenv";
-dotenv.config();
+import ModeloUsuario from "../models/User.js";
 
 export const authenticate = async (req, res, next) => {
   try {
@@ -21,7 +19,7 @@ export const authenticate = async (req, res, next) => {
       next();
     }
   } catch (error) {
-    res.status(500).json({ mensaje: error.message });
+    res.status(401).json({ mensaje: error.message });
   }
 };
 
@@ -33,23 +31,6 @@ export const authorize = async (req, res, next) => {
     }
     next();
   } catch (error) {
-    res.status(500).json({ mensaje: error.message });
+    res.status(403).json({ mensaje: error.message });
   }
-};
-
-export const transformarCadenasVacias = (req, res, next) => {
-  const transform = (obj) => {
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        if (obj[key] === "") {
-          obj[key] = null; // Reemplazar cadena vacía con null
-        } else if (typeof obj[key] === "object" && obj[key] !== null) {
-          transform(obj[key]); // Llamada recursiva si es un objeto
-        }
-      }
-    }
-  };
-
-  transform(req.body);
-  next();
 };
