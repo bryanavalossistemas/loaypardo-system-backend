@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("@/config/db");
 
-const Administrator = sequelize.define(
-  "Administrator",
+const Administrador = sequelize.define(
+  "Administrador",
   {
     id: {
       allowNull: false,
@@ -10,9 +10,10 @@ const Administrator = sequelize.define(
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    userId: {
+    usuarioId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique: true,
     },
   },
   {
@@ -21,4 +22,4 @@ const Administrator = sequelize.define(
   }
 );
 
-module.exports = Administrator;
+module.exports = Administrador;

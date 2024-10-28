@@ -1,12 +1,12 @@
 const Rol = require("@/models/Rol");
-const User = require("@/models/User");
-const Administrator = require("@/models/Administrator");
+const Usuario = require("@/models/Usuario");
+const Administrador = require("@/models/Administrador");
+const Vendedor = require("@/models/Vendedor");
 // import Venta from "./Venta.js";
 // import DetalleVenta from "./DetalleVenta.js";
 // import Producto from "./Producto.js";
 // import Cliente from "./Cliente.js";
 // import Usuario from "./Usuario.js";
-// import Vendedor from "./Vendedor.js";
 // import Proveedor from "./Proveedor.js";
 // import Compra from "./Compra.js";
 // import DetalleCompra from "./DetalleCompra.js";
@@ -14,25 +14,36 @@ const Administrator = require("@/models/Administrator");
 // import Marca from "./Marca.js";
 // import ImagenProducto from "./ImagenProducto.js";
 
-Rol.hasMany(User, {
-  as: "users",
-  foreignKey: "roleId",
+Rol.hasMany(Usuario, {
+  as: "usuarios",
+  foreignKey: "rolId",
   onDelete: "RESTRICT",
 });
-User.belongsTo(Rol, {
-  as: "role",
-  foreignKey: "roleId",
+Usuario.belongsTo(Rol, {
+  as: "rol",
+  foreignKey: "rolId",
   onUpdate: "RESTRICT",
 });
 
-User.hasOne(Administrator, {
-  as: "administrator",
-  foreignKey: "userId",
+Usuario.hasOne(Administrador, {
+  as: "administrador",
+  foreignKey: "usuarioId",
   onDelete: "RESTRICT",
 });
-Administrator.belongsTo(User, {
-  as: "user",
-  foreignKey: "userId",
+Administrador.belongsTo(Usuario, {
+  as: "usuario",
+  foreignKey: "usuarioId",
+  onUpdate: "RESTRICT",
+});
+
+Usuario.hasOne(Vendedor, {
+  as: "vendedor",
+  foreignKey: "usuarioId",
+  onDelete: "RESTRICT",
+});
+Vendedor.belongsTo(Usuario, {
+  as: "usuario",
+  foreignKey: "usuarioId",
   onUpdate: "RESTRICT",
 });
 
@@ -81,12 +92,6 @@ Administrator.belongsTo(User, {
 //   foreignKey: "imagenProductoId",
 // });
 
-// Usuario.hasOne(Vendedor, {
-//   as: "vendedor",
-//   foreignKey: "usuarioId",
-// });
-// Vendedor.belongsTo(Usuario, { as: "usuario", foreignKey: "usuarioId" });
-
 // Proveedor.hasMany(Compra, {
 //   as: "compras",
 //   foreignKey: "proveedorId",
@@ -108,4 +113,4 @@ Administrator.belongsTo(User, {
 // });
 // DetalleCompra.belongsTo(Producto, { as: "producto", foreignKey: "productoId" });
 
-module.exports = { Rol, User, Administrator };
+module.exports = { Rol, Usuario, Administrador, Vendedor };

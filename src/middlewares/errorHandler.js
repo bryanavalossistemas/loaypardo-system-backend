@@ -1,17 +1,12 @@
 const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
-  const message = err.message || "Error de servidor";
-
-  if (message.errors) {
-    return res.status(statusCode).json({
-      success: false,
-      errors: message.errors,
-    });
-  }
+  const message = err.message || "Se produjo un error inesperado";
 
   res.status(statusCode).json({
     success: false,
-    message,
+    status: statusCode,
+    message: message,
+    errors: err.errors || [{ message }],
   });
 };
 

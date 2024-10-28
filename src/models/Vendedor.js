@@ -13,6 +13,7 @@ const Vendedor = sequelize.define(
     dni: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     telefono: {
       type: DataTypes.STRING,
@@ -29,6 +30,7 @@ const Vendedor = sequelize.define(
     usuarioId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique: true,
     },
   },
   {
@@ -37,4 +39,4 @@ const Vendedor = sequelize.define(
   }
 );
 
-export default Vendedor;
+module.exports = Vendedor;

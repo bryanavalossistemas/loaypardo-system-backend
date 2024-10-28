@@ -13,6 +13,7 @@ const Rol = sequelize.define(
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
   },
   {
