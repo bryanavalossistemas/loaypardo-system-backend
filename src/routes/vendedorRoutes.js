@@ -6,8 +6,12 @@ const {
 } = require("@/validations/vendedorValidation");
 const validateFields = require("@/middlewares/validateFields");
 const validateId = require("@/middlewares/validateId");
+const authenticate = require("@/middlewares/authenticateMiddleware");
+const authorize = require("@/middlewares/authorizeMiddleware");
 
 const router = express.Router();
+
+router.use(authenticate, authorize(1));
 
 router
   .route("/")

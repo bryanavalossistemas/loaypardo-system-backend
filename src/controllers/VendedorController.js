@@ -34,10 +34,9 @@ class VendedorController {
   });
 
   update = asyncHandler(async (req, res) => {
+    const { id } = req.params;
     const { nombre, username, password, dni, telefono, celular, correo } =
       req.body;
-
-    const { id } = req.params;
 
     return res.status(201).json({
       success: true,

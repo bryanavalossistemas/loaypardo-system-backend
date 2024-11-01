@@ -13,6 +13,7 @@ const Categoria = sequelize.define(
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
   },
   {
@@ -21,4 +22,4 @@ const Categoria = sequelize.define(
   }
 );
 
-export default Categoria;
+module.exports = Categoria;

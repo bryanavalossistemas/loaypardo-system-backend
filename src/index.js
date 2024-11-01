@@ -6,7 +6,7 @@ async function main() {
   try {
     await connectDB();
 
-    const port = process.env.PORT || 4000;
+    const port = process.env.PORT || 3000;
 
     app.listen(port, () => {
       console.log(
@@ -14,7 +14,7 @@ async function main() {
       );
     });
   } catch (error) {
-    console.error(error);
+    console.error(colors.red.bold(error.message));
   }
 }
 

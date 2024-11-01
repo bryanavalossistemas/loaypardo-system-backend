@@ -1,5 +1,5 @@
 ### CREAR VENDEDOR
-POST http://localhost:4000/api/vendedores
+POST http://localhost:3000/api/vendedores
 Content-Type: application/json
 
 {
@@ -13,13 +13,13 @@ Content-Type: application/json
 }
 
 ### OBTENER TODOS LOS VENDEDORES
-GET http://localhost:4000/api/vendedores
+GET http://localhost:3000/api/vendedores
 
 ### OBTENER VENDEDOR POR ID
-GET http://localhost:4000/api/vendedores/1
+GET http://localhost:3000/api/vendedores/1
 
 ### ACTUALIZAR VENDEDOR POR ID
-PUT http://localhost:4000/api/vendedores/3
+PUT http://localhost:3000/api/vendedores/1
 Content-Type: application/json
 
 {
@@ -33,4 +33,4 @@ Content-Type: application/json
 }
 
 ### ELIMINAR VENDEDOR POR ID
-DELETE  http://localhost:4000/api/vendedores/2
+DELETE  http://localhost:3000/api/vendedores/2

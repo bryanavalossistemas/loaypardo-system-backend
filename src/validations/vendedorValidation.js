@@ -26,6 +26,8 @@ const createValidation = [
     .notEmpty()
     .withMessage("El password no puede ser una cadena vacía."),
   body("dni")
+    .exists()
+    .withMessage("El dni es requerido.")
     .isString()
     .withMessage("El dni debe ser una cadena.")
     .matches(/^\d{8}$/)

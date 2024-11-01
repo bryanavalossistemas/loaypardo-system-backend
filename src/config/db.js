@@ -13,14 +13,14 @@ const sequelize = new Sequelize(
   }
 );
 
-const connectDB = async () => {
+async function connectDB() {
   try {
     await sequelize.authenticate();
     await sequelize.sync({ force: false });
     console.log(colors.blue.bold("CONEXIÓN EXITOSA A LA BASE DE DATOS"));
   } catch (error) {
-    throw new Error(error);
+    throw new Error(`ERROR DE BASE DE DATOS: ${error.message}`);
   }
-};
+}
 
 module.exports = { sequelize, connectDB };

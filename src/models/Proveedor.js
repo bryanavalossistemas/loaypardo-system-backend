@@ -13,22 +13,27 @@ const Proveedor = sequelize.define(
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     ruc: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-    },
-    telefono: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    celular: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     direccion: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    telefono: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    celular: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    correo: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
@@ -36,4 +41,5 @@ const Proveedor = sequelize.define(
     freezeTableName: true,
   }
 );
-export default Proveedor;
+
+module.exports = Proveedor;

@@ -13,14 +13,23 @@ const Producto = sequelize.define(
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     precioCosto: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
+      get() {
+        const valor = this.getDataValue("precioCosto");
+        return valor === null ? null : parseFloat(valor);
+      },
     },
     precioVenta: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
+      get() {
+        const valor = this.getDataValue("precioVenta");
+        return valor === null ? null : parseFloat(valor);
+      },
     },
     stock: {
       type: DataTypes.INTEGER,
@@ -28,11 +37,11 @@ const Producto = sequelize.define(
     },
     categoriaId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     marcaId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     imagenProductoId: {
       type: DataTypes.INTEGER,
@@ -45,4 +54,4 @@ const Producto = sequelize.define(
   }
 );
 
-export default Producto;
+module.exports = Producto;

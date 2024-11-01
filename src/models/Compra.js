@@ -11,16 +11,24 @@ const Compra = sequelize.define(
       allowNull: false,
     },
     total: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
+      get() {
+        const valor = this.getDataValue("total");
+        return valor === null ? null : parseFloat(valor);
+      },
     },
     fecha: {
       type: DataTypes.DATE,
       allowNull: false,
     },
+    nombreProveedor: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     proveedorId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
@@ -29,4 +37,4 @@ const Compra = sequelize.define(
   }
 );
 
-export default Compra;
+module.exports = Compra;

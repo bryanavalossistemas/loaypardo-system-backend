@@ -25,4 +25,4 @@ const ImagenProducto = sequelize.define(
   }
 );
 
-export default ImagenProducto;
+module.exports = ImagenProducto;

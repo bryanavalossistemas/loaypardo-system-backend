@@ -2,17 +2,26 @@ const { Vendedor, Usuario } = require("@/models");
 
 class VendedorService {
   async create({ nombre, username, password, dni, telefono, celular, correo }) {
+    let errors = [];
     const usuarioExiste = await Usuario.findOne({ where: { username } });
     if (usuarioExiste) {
+      errors.push({
+        message: "El nombre de usuario ya está en uso.",
+        path: "username",
+      });
+    }
+    const vendedorExiste = await Vendedor.findOne({ where: { dni } });
+    if (vendedorExiste) {
+      errors.push({
+        message: "El dni ya está en uso.",
+        path: "dni",
+      });
+    }
+    if (errors.length > 0) {
       throw {
-        message: "Error de conflicto",
+        message: "Error de conflicto xd",
         statusCode: 409,
-        errors: [
-          {
-            message: "El nombre de usuario ya está en uso.",
-            path: "username",
-          },
-        ],
+        errors,
       };
     }
     const usuario = await Usuario.create({
@@ -33,7 +42,9 @@ class VendedorService {
   }
 
   async getAll() {
-    return await Vendedor.findAll();
+    return await Vendedor.findAll({
+      include: [{ model: Usuario, as: "usuario" }],
+    });
   }
 
   async getById({ id }) {
@@ -50,6 +61,7 @@ class VendedorService {
         ],
       };
     }
+
     return vendedor;
   }
 
@@ -63,19 +75,35 @@ class VendedorService {
     celular,
     correo,
   }) {
+    let errors = [];
     const vendedor = await this.getById({ id });
-    const usuarioExiste = await Usuario.findOne({ where: { username } });
+    if (username) {
+      const usuarioExiste = await Usuario.findOne({ where: { username } });
 
-    if (usuarioExiste && usuarioExiste.id !== vendedor.usuarioId) {
+      if (usuarioExiste && usuarioExiste.id !== vendedor.usuarioId) {
+        errors.push({
+          message: "El nombre de usuario ya está en uso.",
+          path: "username",
+        });
+      }
+    }
+
+    if (dni) {
+      const vendedorExiste = await Vendedor.findOne({ where: { dni } });
+
+      if (vendedorExiste && vendedorExiste.id !== vendedor.id) {
+        errors.push({
+          message: "El dni ya está en uso.",
+          path: "dni",
+        });
+      }
+    }
+
+    if (errors.length > 0) {
       throw {
-        message: "Error de conflicto",
+        message: "Error de conflicto xd",
         statusCode: 409,
-        errors: [
-          {
-            message: "El nombre de usuario ya está en uso.",
-            path: "username",
-          },
-        ],
+        errors,
       };
     }
 
@@ -91,6 +119,7 @@ class VendedorService {
     const usuario = await Usuario.findByPk(vendedor.usuarioId);
     await vendedor.destroy();
     await usuario.destroy();
+
     return "Vendedor eliminado correctamente";
   }
 }

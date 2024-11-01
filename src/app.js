@@ -4,16 +4,16 @@ const morgan = require("morgan");
 const errorHandler = require("@/middlewares/errorHandler");
 
 const vendedorRoutes = require("@/routes/vendedorRoutes");
-// import rutasDetalleVenta from "./routes/DetalleVenta.js";
-// import rutasVenta from "./routes/Venta.js";
-// import rutasCategoria from "./routes/Categoria.js";
-// import rutasMarca from "./routes/Marca.js";
-// import rutasProveedor from "./routes/Proveedor.js";
-// import rutasCompra from "./routes/Compra.js";
-// import rutasCliente from "./routes/Cliente.js";
-// import rutasProducto from "./routes/Producto.js";
-// import rutasImagenProducto from "./routes/ImagenProducto.js";
-// import rutasDetalleCompra from "./routes/DetalleCompra.js";
+const clienteRoutes = require("@/routes/ClienteRoutes");
+const clienteJuridicoRoutes = require("@/routes/ClienteJuridicoRoutes");
+const clienteNaturalRoutes = require("@/routes/ClienteNaturalRoutes");
+const proveedorRoutes = require("@/routes/ProveedorRoutes");
+const categoriaRoutes = require("@/routes/CategoriaRoutes");
+const marcaRoutes = require("@/routes/MarcaRoutes");
+const productoRoutes = require("@/routes/ProductoRoutes");
+const compraRoutes = require("@/routes/CompraRoutes");
+const ventaRoutes = require("@/routes/VentaRoutes");
+const authRoutes = require("@/routes/AuthRoutes");
 
 const app = express();
 
@@ -23,16 +23,16 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/api/vendedores", vendedorRoutes);
-// app.use("/api/categorias", rutasCategoria);
-// app.use("/api/marcas", rutasMarca);
-// app.use("/api/proveedores", rutasProveedor);
-// app.use("/api/compras", rutasCompra);
-// app.use("/api/clientes", rutasCliente);
-// app.use("/api/ventas", rutasVenta);
-// app.use("/api/detalleventas", rutasDetalleVenta);
-// app.use("/api/productos", rutasProducto);
-// app.use("/api/imagenproducto", rutasImagenProducto);
-// app.use("/api/detallecompras", rutasDetalleCompra);
+app.use("/api/clientes", clienteRoutes);
+app.use("/api/clientesJuridicos", clienteJuridicoRoutes);
+app.use("/api/clientesNaturales", clienteNaturalRoutes);
+app.use("/api/proveedores", proveedorRoutes);
+app.use("/api/categorias", categoriaRoutes);
+app.use("/api/marcas", marcaRoutes);
+app.use("/api/productos", productoRoutes);
+app.use("/api/compras", compraRoutes);
+app.use("/api/ventas", ventaRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use(errorHandler);
 

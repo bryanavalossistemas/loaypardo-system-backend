@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("@/config/db");
 
-const ModeloVenta = sequelize.define(
+const Venta = sequelize.define(
   "Venta",
   {
     id: {
@@ -15,20 +15,44 @@ const ModeloVenta = sequelize.define(
       allowNull: false,
     },
     subtotal: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
+      get() {
+        const valor = this.getDataValue("subtotal");
+        return valor === null ? null : parseFloat(valor);
+      },
     },
     igv: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
+      get() {
+        const valor = this.getDataValue("igv");
+        return valor === null ? null : parseFloat(valor);
+      },
     },
     total: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      get() {
+        const valor = this.getDataValue("total");
+        return valor === null ? null : parseFloat(valor);
+      },
+    },
+    utilidad: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      get() {
+        const valor = this.getDataValue("utilidad");
+        return valor === null ? null : parseFloat(valor);
+      },
+    },
+    nombreCliente: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     clienteId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
@@ -37,4 +61,4 @@ const ModeloVenta = sequelize.define(
   }
 );
 
-export default ModeloVenta;
+module.exports = Venta;

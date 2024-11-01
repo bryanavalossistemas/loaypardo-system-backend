@@ -15,12 +15,20 @@ const DetalleCompra = sequelize.define(
       allowNull: false,
     },
     precioCosto: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      get() {
+        const valor = this.getDataValue("precioCosto");
+        return valor === null ? null : parseFloat(valor);
+      },
+    },
+    nombreProducto: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     productoId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     compraId: {
       type: DataTypes.INTEGER,
@@ -33,4 +41,4 @@ const DetalleCompra = sequelize.define(
   }
 );
 
-export default DetalleCompra;
+module.exports = DetalleCompra;

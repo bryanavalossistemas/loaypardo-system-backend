@@ -2,17 +2,18 @@ const Rol = require("@/models/Rol");
 const Usuario = require("@/models/Usuario");
 const Administrador = require("@/models/Administrador");
 const Vendedor = require("@/models/Vendedor");
-// import Venta from "./Venta.js";
-// import DetalleVenta from "./DetalleVenta.js";
-// import Producto from "./Producto.js";
-// import Cliente from "./Cliente.js";
-// import Usuario from "./Usuario.js";
-// import Proveedor from "./Proveedor.js";
-// import Compra from "./Compra.js";
-// import DetalleCompra from "./DetalleCompra.js";
-// import Categoria from "./Categoria.js";
-// import Marca from "./Marca.js";
-// import ImagenProducto from "./ImagenProducto.js";
+const Cliente = require("@/models/Cliente");
+const ClienteJuridico = require("@/models/ClienteJuridico");
+const ClienteNatural = require("@/models/ClienteNatural");
+const Proveedor = require("@/models/Proveedor");
+const Categoria = require("@/models/Categoria");
+const Marca = require("@/models/Marca");
+const ImagenProducto = require("@/models/ImagenProducto");
+const Producto = require("@/models/Producto");
+const DetalleCompra = require("@/models/DetalleCompra");
+const Compra = require("@/models/Compra");
+const DetalleVenta = require("@/models/DetalleVenta");
+const Venta = require("@/models/Venta");
 
 Rol.hasMany(Usuario, {
   as: "usuarios",
@@ -22,7 +23,6 @@ Rol.hasMany(Usuario, {
 Usuario.belongsTo(Rol, {
   as: "rol",
   foreignKey: "rolId",
-  onUpdate: "RESTRICT",
 });
 
 Usuario.hasOne(Administrador, {
@@ -33,7 +33,6 @@ Usuario.hasOne(Administrador, {
 Administrador.belongsTo(Usuario, {
   as: "usuario",
   foreignKey: "usuarioId",
-  onUpdate: "RESTRICT",
 });
 
 Usuario.hasOne(Vendedor, {
@@ -44,73 +43,118 @@ Usuario.hasOne(Vendedor, {
 Vendedor.belongsTo(Usuario, {
   as: "usuario",
   foreignKey: "usuarioId",
-  onUpdate: "RESTRICT",
 });
 
-// Cliente.hasMany(Venta, {
-//   as: "ventas",
-//   foreignKey: "clienteId",
-// });
-// Venta.belongsTo(Cliente, { as: "cliente", foreignKey: "clienteId" });
+Categoria.hasMany(Producto, {
+  as: "productos",
+  foreignKey: "categoriaId",
+  onDelete: "SET NULL",
+});
+Producto.belongsTo(Categoria, {
+  as: "categoria",
+  foreignKey: "categoriaId",
+});
 
-// Venta.hasMany(DetalleVenta, {
-//   as: "detallesVenta",
-//   foreignKey: "ventaId",
-// });
-// DetalleVenta.belongsTo(Venta, { as: "venta", foreignKey: "ventaId" });
+Marca.hasMany(Producto, {
+  as: "productos",
+  foreignKey: "marcaId",
+  onDelete: "SET NULL",
+});
+Producto.belongsTo(Marca, {
+  as: "marca",
+  foreignKey: "marcaId",
+});
 
-// Producto.hasMany(DetalleVenta, {
-//   as: "detallesVenta",
-//   foreignKey: "productoId",
-// });
-// DetalleVenta.belongsTo(Producto, { as: "producto", foreignKey: "productoId" });
+ImagenProducto.hasOne(Producto, {
+  as: "producto",
+  foreignKey: "imagenProductoId",
+  onDelete: "RESTRICT",
+});
+Producto.belongsTo(ImagenProducto, {
+  as: "imagenProducto",
+  foreignKey: "imagenProductoId",
+});
 
-// Categoria.hasMany(Producto, {
-//   as: "productos",
-//   foreignKey: "categoriaId",
-// });
-// Producto.belongsTo(Categoria, {
-//   as: "categoria",
-//   foreignKey: "categoriaId",
-// });
+Producto.hasMany(DetalleCompra, {
+  as: "detallesCompra",
+  foreignKey: "productoId",
+  onDelete: "SET NULL",
+});
+DetalleCompra.belongsTo(Producto, { as: "producto", foreignKey: "productoId" });
 
-// Marca.hasMany(Producto, {
-//   as: "productos",
-//   foreignKey: "marcaId",
-// });
-// Producto.belongsTo(Marca, {
-//   as: "marca",
-//   foreignKey: "marcaId",
-// });
+Compra.hasMany(DetalleCompra, {
+  as: "detallesCompra",
+  foreignKey: "compraId",
+  onDelete: "CASCADE",
+});
+DetalleCompra.belongsTo(Compra, { as: "compra", foreignKey: "compraId" });
 
-// ImagenProducto.hasOne(Producto, {
-//   as: "producto",
-//   foreignKey: "imagenProductoId",
-// });
-// Producto.belongsTo(ImagenProducto, {
-//   as: "imagenProducto",
-//   foreignKey: "imagenProductoId",
-// });
+Proveedor.hasMany(Compra, {
+  as: "compras",
+  foreignKey: "proveedorId",
+  onDelete: "SET NULL",
+});
+Compra.belongsTo(Proveedor, {
+  as: "proveedor",
+  foreignKey: "proveedorId",
+});
 
-// Proveedor.hasMany(Compra, {
-//   as: "compras",
-//   foreignKey: "proveedorId",
-// });
-// Compra.belongsTo(Proveedor, {
-//   foreignKey: "proveedorId",
-//   as: "proveedor",
-// });
+Cliente.hasOne(ClienteJuridico, {
+  as: "clienteJuridico",
+  foreignKey: "clienteId",
+  onDelete: "RESTRICT",
+});
+ClienteJuridico.belongsTo(Cliente, {
+  as: "cliente",
+  foreignKey: "clienteId",
+});
 
-// Compra.hasMany(DetalleCompra, {
-//   as: "detallesCompra",
-//   foreignKey: "compraId",
-// });
-// DetalleCompra.belongsTo(Compra, { as: "compra", foreignKey: "compraId" });
+Producto.hasMany(DetalleVenta, {
+  as: "detallesVenta",
+  foreignKey: "productoId",
+  onDelete: "SET NULL",
+});
+DetalleVenta.belongsTo(Producto, { as: "producto", foreignKey: "productoId" });
 
-// Producto.hasMany(DetalleCompra, {
-//   as: "detallesCompra",
-//   foreignKey: "productoId",
-// });
-// DetalleCompra.belongsTo(Producto, { as: "producto", foreignKey: "productoId" });
+Venta.hasMany(DetalleVenta, {
+  as: "detallesVenta",
+  foreignKey: "ventaId",
+  onDelete: "CASCADE",
+});
+DetalleVenta.belongsTo(Venta, { as: "venta", foreignKey: "ventaId" });
 
-module.exports = { Rol, Usuario, Administrador, Vendedor };
+Cliente.hasOne(ClienteNatural, {
+  as: "clienteNatural",
+  foreignKey: "clienteId",
+  onDelete: "RESTRICT",
+});
+ClienteNatural.belongsTo(Cliente, {
+  as: "cliente",
+  foreignKey: "clienteId",
+});
+
+Cliente.hasMany(Venta, {
+  as: "ventas",
+  foreignKey: "clienteId",
+  onDelete: "SET NULL",
+});
+Venta.belongsTo(Cliente, { as: "cliente", foreignKey: "clienteId" });
+
+module.exports = {
+  Rol,
+  Usuario,
+  Administrador,
+  Vendedor,
+  Cliente,
+  ClienteJuridico,
+  ClienteNatural,
+  Proveedor,
+  Categoria,
+  Marca,
+  ImagenProducto,
+  Producto,
+  DetalleCompra,
+  Compra,
+  DetalleVenta,
+  Venta,
+};

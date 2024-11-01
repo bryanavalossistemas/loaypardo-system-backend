@@ -13,6 +13,7 @@ const Marca = sequelize.define(
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
   },
   {
@@ -21,4 +22,4 @@ const Marca = sequelize.define(
   }
 );
 
-export default Marca;
+module.exports = Marca;

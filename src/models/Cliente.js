@@ -13,13 +13,18 @@ const Cliente = sequelize.define(
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
-    celular: {
-      type: DataTypes.INTEGER,
+    direccion: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
-    ruc: {
-      type: DataTypes.BIGINT,
+    celular: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    correo: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
   },
@@ -29,4 +34,4 @@ const Cliente = sequelize.define(
   }
 );
 
-export default Cliente;
+module.exports = Cliente;
